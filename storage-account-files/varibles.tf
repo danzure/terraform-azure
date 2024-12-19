@@ -1,0 +1,3 @@
+variable "storageLocation" {
+    default = "uksouth"
+}
