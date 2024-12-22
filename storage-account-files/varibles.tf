@@ -1,0 +1,3 @@
+variable "resourceRegion" {
+  default = "uksouth"
+}

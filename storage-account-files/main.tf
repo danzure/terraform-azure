@@ -1,13 +1,18 @@
-resource "azurerm_resource_group" "name" {
+resource "azurerm_resource_group" "resourceGroup" {
   name = "TestResourceGroup"
-  location = "uksouth"
+  location = var.resourceRegion
 }
 
-resource "azurerm_storage_account" "name" {
+resource "azurerm_storage_account" "storage_account" {
 name = "storage3445345346"
-resource_group_name = azurerm_resource_group.name
-location = azurerm_resource_group.location
-access_tier = ""
-account_tier = ""
-account_replication_type = "Standard_LRS"
+resource_group_name = azurerm_resource_group.resourceGroup.name
+location = azurerm_resource_group.resourceGroup.location
+
+account_tier = "Standard"
+account_replication_type = "LRS"
+}
+
+resource "azurerm_storage_share" "fileShare" {
+  name = "FileShare"
+  quota = "10"
 }
