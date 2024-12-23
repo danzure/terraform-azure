@@ -4,7 +4,13 @@ terraform {
       source = "hashicorp/azurerm"
       version = "4.14.0"
     }
+    # Set the random provider
+    random = {
+      source = "hashicorp/random"
+      version = "3.1.0"
+    }
   }
+  # Set the Hashicorp HCP Terraform organisation
   cloud {
     organization = "danzure-org"
     workspaces {
@@ -14,5 +20,8 @@ terraform {
 }
 
 provider "azurerm" {
-  # Configuration options
+  # Configuration options for resources
+  features {
+    
+  }
 }
