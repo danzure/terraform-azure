@@ -1,8 +1,9 @@
+# Random string to create unique ID for the storage account
 resource "random_string" "storageAccountRandomString" {
-  length = 6
+  length = 8
   upper = false
   special = false
-  number = false
+  number = true
 }
 
 # Deploys the resource group
@@ -15,7 +16,7 @@ resource "azurerm_resource_group" "resourceGroup" {
 
 # Deploys the storage account with a random number string
 resource "azurerm_storage_account" "storage_account" {
-name = "storage3445345346"
+name = "sadtrfm${random_string.storageAccountRandomString.result}" 
 resource_group_name = azurerm_resource_group.resourceGroup.name
 location = azurerm_resource_group.resourceGroup.location
 account_tier = "Standard"
