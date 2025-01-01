@@ -2,7 +2,7 @@
 ----
 ## Introduction 👋 ##
 
-Hello, welcome to my 'Terraform-Azure' GitHub repository, here you will find all of my self-created samples & quickstarts for use within Azure.
+Hello, welcome to my GitHub repo for Azure Terraform reposirty, here you'll find all my self made code samples used for my personal projects
 
 ## Other Notes ##
 
