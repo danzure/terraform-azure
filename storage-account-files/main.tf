@@ -2,6 +2,7 @@
 resource "random_string" "storageAccountRandomString" {
   length = 8
   upper = false
+  lower = false 
   special = false
   number = true
 }
@@ -23,6 +24,10 @@ account_tier = "Standard"
 account_replication_type = "LRS"
 
 tags = var.resourceTags
+
+lifecycle {
+  create_before_destroy = true
+  }
 }
 
 # Create the Azure File share
@@ -30,8 +35,6 @@ resource "azurerm_storage_share" "fileShare" {
   name = var.fileShareName
   quota = var.storageAccountQuota
   enabled_protocol = "SMB"
-  
   storage_account_id = azurerm_storage_account.storage_account.id
-
   depends_on = [ azurerm_storage_account.storage_account, ]
 }

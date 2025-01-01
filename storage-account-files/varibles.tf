@@ -6,7 +6,7 @@ variable "resourceRegion" {
 
 # resource tagging varible
 variable "resourceTags" {
-  description = "detault tagging for resources"
+  description = "Standard tags to be applied to resources"
   default = {
    Deployment = "Terraform"
    Production = "Dev/Test"
@@ -16,17 +16,19 @@ variable "resourceTags" {
 
 # Resource Group Name
 variable "resourceGroupName" {
-  description = "Name of the resource Group"
+  description = "The name of the default resource group"
   type = string
   default = "rg-d-trfm-uks-001"
 }
 
+# fileshare name 
 variable "fileShareName" {
-  description = "Default file share name"
+  description = "The name of the file share"
   default = "fileshare"
 }
 
+# storage account quote
 variable "storageAccountQuota" {
-  description = "Default file share quota"
-  default = "50"
+  description = "The amount of storage for the file share in GiB"
+  default = "10"
 }
