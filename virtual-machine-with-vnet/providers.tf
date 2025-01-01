@@ -22,6 +22,8 @@ terraform {
 provider "azurerm" {
   # Configuration options for resources
   features {
-    
+    virtual_machine {
+      graceful_shutdown = true
+    }
   }
 }

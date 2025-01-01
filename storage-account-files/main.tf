@@ -1,6 +1,13 @@
+resource "random_string" "storageAccountRandomString" {
+  length = 6
+  upper = false
+  special = false
+  number = false
+}
+
 # Deploys the resource group
 resource "azurerm_resource_group" "resourceGroup" {
-  name = "rg-d-trfm-uks-001"
+  name = var.resourceGroupName
   location = var.resourceRegion
 
   tags = var.resourceTags
