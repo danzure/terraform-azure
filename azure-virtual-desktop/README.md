@@ -23,7 +23,7 @@ The configuration includes the following resources:
 
 1. Clone the repository:
     ```sh
-    git clone https://github.com/azure-terraform/terraform-azure-virtual-desktop.git
+    git clone https://github.com/terraform-azure/terraform-azure-virtual-desktop.git
     cd terraform-azure-virtual-desktop
     ```
 
