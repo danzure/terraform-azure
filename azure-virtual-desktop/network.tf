@@ -12,7 +12,7 @@ resource "azurerm_resource_group" "network_resource_group" {
 }
 
 # Deploy the virtual network using dynamic name scheme
-resource "azurerm_virtual_network" "virtual_network" {
+resource "azurerm_virtual_network" "vnet" {
   name = format("vnet-%s-%s-%s-001",
     local.generate_network_name.envrionment,
     local.generate_network_name.workload,
@@ -27,14 +27,14 @@ resource "azurerm_virtual_network" "virtual_network" {
 }
 
 # Deploy the default subnet
-resource "azurerm_subnet" "subnet_01" {
+resource "azurerm_subnet" "avd_subnet" {
   name = format("snet-%s-%s-%s-001",
     local.generate_network_name.envrionment,
     local.generate_network_name.workload,
     local.generate_network_name.location
   )
   resource_group_name  = azurerm_resource_group.network_resource_group.name
-  virtual_network_name = azurerm_virtual_network.virtual_network.name
+  virtual_network_name = azurerm_virtual_network.vnet.name
   address_prefixes     = ["10.10.0.0/24"]
-  depends_on           = [azurerm_virtual_network.virtual_network]
+  depends_on           = [azurerm_virtual_network.vnet]
 }

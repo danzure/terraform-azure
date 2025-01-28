@@ -1,4 +1,4 @@
-# Create the AVD Resource Group
+# Create the Resource Group that will contain the resources for the AVD
 resource "azurerm_resource_group" "avd_resource_group" {
   name = format("rg-%s-%s-%s-001",
     local.generate_resource_name.envrionment,
@@ -38,6 +38,7 @@ resource "azurerm_virtual_desktop_host_pool" "avd_host_pool" {
   location            = azurerm_resource_group.avd_resource_group.location
   friendly_name       = "${var.workload}-hostpool"
   description         = "Hostpool for ${var.workload}"
+  
 
   # Set the hostpool options
   load_balancer_type       = "DepthFirst" #[BreadthFirst, DepthFirst]
