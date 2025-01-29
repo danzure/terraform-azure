@@ -21,9 +21,7 @@ provider "azurerm" {
   features {
     virtual_machine {
       graceful_shutdown = true
-    }
-    resource_group {
-      prevent_deletion_if_contains_resources = false
+      delete_os_disk_on_deletion = true
     }
   }
 }

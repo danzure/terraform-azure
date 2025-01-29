@@ -69,8 +69,18 @@ variable "network_workload" {
 }
 
 # Set the address space for the virtual network
+variable "vnet_address_space" {
+ description = "IP address space for the virtual network" 
+ type = string
+ default = "10.10.0.0/22"
+}
 
 # Set the address prefixes for the subnet
+variable "snet_address_space" {
+  description = "IP address space for the AVD subnet"
+  type = string
+  default = "10.10.0.0/24"
+}
 
 # Set the default tags for networking resources
 variable "network_tags" {

@@ -29,7 +29,9 @@ resource "azurerm_windows_virtual_machine" "avd_host" {
   provision_vm_agent = true
   patch_assessment_mode = "ImageDefault"
   patch_mode = "Manual"
+
   enable_automatic_updates = false
+  vm_agent_platform_updates_enabled = false
 
   admin_username = var.admin_username
   admin_password = var.admin_password
@@ -47,7 +49,7 @@ resource "azurerm_windows_virtual_machine" "avd_host" {
     sku = "win11-24h2-avd"
     version = "latest"
   }
-  depends_on = [ azurerm_resource_group.avd_resource_group, azurerm_network_interface.host_nic ]
+  depends_on = [ azurerm_resource_group.avd_resource_group, azurerm_network_interface.host_nic, azurerm_virtual_desktop_host_pool.avd_host_pool ]
 }
 
 # Deploy the AVD host registration extension to join VM(s) to the hostpool

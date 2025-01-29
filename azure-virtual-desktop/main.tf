@@ -6,7 +6,7 @@ resource "azurerm_resource_group" "avd_resource_group" {
     local.generate_resource_name.location
   )
   location = var.location
-
+  
   tags = var.resource_tags
 }
 
@@ -38,13 +38,13 @@ resource "azurerm_virtual_desktop_host_pool" "avd_host_pool" {
   location            = azurerm_resource_group.avd_resource_group.location
   friendly_name       = "${var.workload}-hostpool"
   description         = "Hostpool for ${var.workload}"
-  
 
   # Set the hostpool options
   load_balancer_type       = "DepthFirst" #[BreadthFirst, DepthFirst]
   type                     = "Pooled"     #[Pooled, Personal]
   maximum_sessions_allowed = 5
   preferred_app_group_type = "Desktop" #[Desktop, RemoteApp]
+  start_vm_on_connect = true 
 
   tags = var.resource_tags
 }
