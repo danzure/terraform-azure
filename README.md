@@ -9,5 +9,5 @@ Hello, welcome to my azure terraform reposirty. Here you will find all of my sel
 Work in progress
 
 ## Channel log ##
-<li>Updated: 01/01/2024: Repo updated</li>
+<li>Updated: 01/01/2025: Repo updated</li>
 <li>Updated: 22/12/2024: Inital commit</li>
