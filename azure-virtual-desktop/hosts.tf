@@ -1,12 +1,12 @@
-# Create the registration token
+# generate the local registration token for the avd host pool
 locals {
   registration_token = azurerm_virtual_desktop_host_pool_registration_info.hostpool_registration.token
 }
 
-# Create the azure virtual network adaptor card (NIC)
+# create the azure virtual network adaptor card (NIC)
 resource "azurerm_network_interface" "host_nic" {
   count = var.rdsh_count
-  name = "nic-host-0${count.index + 1}"
+  name = format("nic-${var.prefix}-host-%03d", count.index + 1)
   location = azurerm_resource_group.avd_resource_group.location
   resource_group_name = azurerm_resource_group.avd_resource_group.name
 
@@ -18,10 +18,10 @@ resource "azurerm_network_interface" "host_nic" {
   tags = var.resource_tags
 }
 
-# Create the azure virtual machine
+# create the azure virtual machine host(s)
 resource "azurerm_windows_virtual_machine" "avd_host" {
   count = var.rdsh_count
-  name = "avd-host-0${count.index + 1}"
+  name = format("${var.prefix}-host-%03d", count.index + 1)
   resource_group_name = azurerm_resource_group.avd_resource_group.name
   network_interface_ids = ["${azurerm_network_interface.host_nic.*.id[count.index]}"]
   location = var.location
@@ -29,7 +29,6 @@ resource "azurerm_windows_virtual_machine" "avd_host" {
   provision_vm_agent = true
   patch_assessment_mode = "ImageDefault"
   patch_mode = "Manual"
-
   enable_automatic_updates = false
   vm_agent_platform_updates_enabled = false
 
@@ -39,7 +38,7 @@ resource "azurerm_windows_virtual_machine" "avd_host" {
   tags = var.resource_tags
 
   os_disk {
-    name = "osdisk-avdhost-0${count.index + 1}"
+    name = format("osdisk-${var.prefix}-host-%03d", count.index + 1)
     caching = "ReadWrite"
     storage_account_type = "Standard_LRS" 
   }
@@ -49,13 +48,13 @@ resource "azurerm_windows_virtual_machine" "avd_host" {
     sku = "win11-24h2-avd"
     version = "latest"
   }
-  depends_on = [ azurerm_resource_group.avd_resource_group, azurerm_network_interface.host_nic, azurerm_virtual_desktop_host_pool.avd_host_pool ]
+  depends_on = [ azurerm_resource_group.avd_resource_group, azurerm_network_interface.host_nic ]
 }
 
-# Deploy the AVD host registration extension to join VM(s) to the hostpool
+# deploy the avd host pool registration vm extension to each host(s)
 resource "azurerm_virtual_machine_extension" "avd_host_registration" {
   count = var.rdsh_count
-  name = "host-registration-0${count.index + 1}"
+  name = format("hostregistration-${var.prefix}-host-%03d", count.index + 1)
   virtual_machine_id = azurerm_windows_virtual_machine.avd_host.*.id[count.index]
   publisher = "Microsoft.PowerShell"
   type = "DSC"
@@ -81,8 +80,37 @@ SETTINGS
 PROTECTED_SETTINGS
 
   depends_on = [
-    azurerm_virtual_desktop_host_pool.avd_host_pool
+    azurerm_virtual_desktop_host_pool.avd_host_pool, azurerm_windows_virtual_machine.avd_host
   ]
 }
 
-# Deploy the AVD domain join extension to join VM(s) to a Domain
+# deploy the domain join vm extention to each virtual machine host(s)
+resource "azurerm_virtual_machine_extension" "domain_join" {
+  count                      = var.rdsh_count
+  name                       = format("domainjoin-${var.prefix}-host-%03d", count.index + 1)
+  virtual_machine_id         = azurerm_windows_virtual_machine.avd_host.*.id[count.index]
+  publisher                  = "Microsoft.Compute"
+  type                       = "JsonADDomainExtension"
+  type_handler_version       = "1.3"
+  auto_upgrade_minor_version = true
+
+  settings = <<SETTINGS
+    {
+      "Name": "${var.domain_name}",
+      "OUPath": "${var.domain_ou_path}",
+      "User": "${var.domain_join_upn}@${var.domain_name}",
+      "Restart": "true",
+      "Options": "3"
+    }
+SETTINGS
+
+  protected_settings = <<PROTECTED_SETTINGS
+    {
+      "Password": "${var.domain_password}"
+    }
+
+PROTECTED_SETTINGS
+  lifecycle {
+    ignore_changes = [settings, protected_settings]
+  }
+}

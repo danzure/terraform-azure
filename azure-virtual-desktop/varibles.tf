@@ -1,4 +1,4 @@
-# Create a map of abbriviations for dynamic naming based on location, add or remove these as necessary 
+# Create a map of abbriviations for dynamic naming based on location, add or remove these as necessary
 locals {
   location_abbr = {
     "uksouth"        = "uks"
@@ -34,7 +34,7 @@ variable "envrionment" {
 variable "workload" {
   description = "The name of the workload or application for the AVD deployment"
   type        = string
-  default     = "trfm"
+  default     = "tfavd"
 }
 
 variable "location" {
@@ -52,39 +52,32 @@ variable "resource_tags" {
   }
 }
 
-# Set the friendly name for the AVD workspace
 variable "workspace_friendly_name" {
   description = "Friendly name for the AVD workspace"
   type        = string
   default     = "TF AVD Workspace"
 }
 
-#-------------------Network Varibiles---------------------#
-
-# Set the workload name for network resources
 variable "network_workload" {
   description = "Name of the workload for networking resources"
   type        = string
   default     = "infra"
 }
 
-# Set the address space for the virtual network
 variable "vnet_address_space" {
  description = "IP address space for the virtual network" 
  type = string
  default = "10.10.0.0/22"
 }
 
-# Set the address prefixes for the subnet
-variable "snet_address_space" {
-  description = "IP address space for the AVD subnet"
+variable "snet_address_prefix" {
+  description = "IP address prefix for the AVD subnet"
   type = string
   default = "10.10.0.0/24"
 }
 
-# Set the default tags for networking resources
 variable "network_tags" {
-  description = "Tagging applied to the virtual network resources"
+  description = "Tagging applied to network infrastructure resources"
   default = {
     Deployment  = "Terraform"
     Workload    = "Infrastructure"
@@ -92,71 +85,86 @@ variable "network_tags" {
   }
 }
 
-#--------------------Host Varibiles----------------------#
-
-# Set the number of AVD hosts to deploy
 variable "rdsh_count" {
   description = "Number of remote desktop session hosts to deploy"
-  default = 1
+  default = 2
 }
 
-# Set the default virtual machine size (sku) for the host machines
 variable "vm_size" {
-  description = "Size of the virtual machine host"
+  description = "Size of the virtual machine host(s)"
   type        = string
   default     = "Standard_B2s"
 }
 
-# The OU path for joining the AVD hosts to a domain  
+variable "prefix" {
+  description = "Prefix name for the name of the AVD host(s)"
+  type = string
+  default = "avdtf"
+}
+ 
 variable "domain_ou_path" {
   description = "The OU the AVD machines will be joined too"
   type = string
   default = "" #Enter the domain OU path here
 }
 
-# Default local admin username
+variable "domain_name" {
+  description = "The domain the AVD host(s) will be joined too"
+  type = string
+  default = "hosts.local"
+}
+
+variable "domain_join_upn" {
+  description = "The username for the account to join the domain"
+  type = string
+  default = "domainjoinuser" # do not include the domain name, this this appended
+}
+
+variable "domain_password" {
+description = "Password for the user to authenticate the join to the domain"
+type = string
+sensitive = true
+default = "ChangeMe123!"
+}
+
 variable "admin_username" {
-  description = "local admin username"
+  description = "local admin username for the avd host(s)"
   type        = string
   default     = "azureadmin"
 }
 
-# Default local admin password
 variable "admin_password" {
-  description = "local admin password"
+  description = "local admin password for the avd host(s)"
   type        = string
   default     = "ChangeMe123!"
   sensitive   = true
 }
 
-# AVD host registration
 variable "avd_host_registration" {
   description = "Varible to attach the virtual machine to the AVD host pool"
   type = string
   default = "https://wvdportalstorageblob.blob.core.windows.net/galleryartifacts/Configuration_02-23-2022.zip"
 }
 
-# Host registration token expiration 
 variable "rfc3339time" {
-  description = "Host registration token expiration"
-  default     = "2025-01-30T23:40:52Z"
+  description = "Host registration token expiration date & time"
+  default     = "2025-02-14T23:40:52Z"
 }
-
-#----------------------SA Varibles------------------------------#
 
 variable "storage_account_tags" {
   description = "Tags to be applied to the storage account"
   default = {
     Workload = "FSLogix"
+    Deployment = "Terraform"
   }
 }
 
 variable "fsl_quota" {
-  description = "Set the storage quote for the FSLogix file share"
+  description = "Set the storage quota (GB) for the FSLogix file share"
   default = "5"
 }
 
 variable "msix_quota" {
-  description = "Set the storage quote for the FSLogix file share"
+  description = "Set the storage quota (GB) for the FSLogix file share"
   default = "5"
 }

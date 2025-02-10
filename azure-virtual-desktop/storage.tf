@@ -35,7 +35,7 @@ resource "azurerm_storage_account" "sa_msixapp" {
   location = azurerm_resource_group.avd_resource_group.location
   account_replication_type = "LRS"
   account_tier = "Standard"
-  #account_kind = "FileStorage"
+  #account_kind = "FileStorage" 
 
   tags = var.storage_account_tags
 }

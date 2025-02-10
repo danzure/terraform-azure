@@ -34,10 +34,19 @@ output "vdag_name" {
   value = azurerm_virtual_desktop_application_group.avd_dag.name
 }
 
-# output virtual network address space
 output "vnet_address_space" {
   description = "IP address range for the virtual network"
   value = azurerm_virtual_network.vnet.address_space
+}
+
+output "snet_address_prefix" {
+  description = "IP address space for the virtual subnet"
+  value = azurerm_subnet.avd_subnet.address_prefixes
+}
+
+output "nsg_name" {
+  description = "Name of the NSG for the azure virtual desktop"
+  value = azurerm_network_security_group.avd_nsg.name
 }
 
 output "rd_host_count" {
