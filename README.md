@@ -32,11 +32,6 @@ If you would like to contribute to this repository, please fork the repository a
 
 Daniel Powley 
 
-## Contact
-
-For any questions or feedback, please reach out to me either email: [danielpowley92@outlook.com](mailto:danielpowley92@outlook.com) or via [https://www.linkedin.com/in/danielpowley92](LinkedIn)
-
-
 # License
 
 This repository is licensed under the MIT License. See the [LICENSE](LICENSE) file for more information.
