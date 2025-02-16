@@ -5,32 +5,34 @@ locals {
 
 # create the azure virtual network adaptor card (NIC)
 resource "azurerm_network_interface" "host_nic" {
+  resource_group_name = azurerm_resource_group.avd_resource_group.name
+  location = azurerm_resource_group.avd_resource_group.location
+
   count = var.rdsh_count
   name = format("nic-${var.prefix}-host-%03d", count.index + 1)
-  location = azurerm_resource_group.avd_resource_group.location
-  resource_group_name = azurerm_resource_group.avd_resource_group.name
 
   ip_configuration {
     name = "nic-${count.index + 1}_config"
     subnet_id = azurerm_subnet.avd_subnet.id
     private_ip_address_allocation = "Dynamic" 
   }
-  tags = var.resource_tags
 }
 
 # create the azure virtual machine host(s)
 resource "azurerm_windows_virtual_machine" "avd_host" {
+  resource_group_name = azurerm_resource_group.avd_resource_group.name
+  location = azurerm_resource_group.avd_resource_group.location
+
   count = var.rdsh_count
   name = format("${var.prefix}-host-%03d", count.index + 1)
-  resource_group_name = azurerm_resource_group.avd_resource_group.name
   network_interface_ids = ["${azurerm_network_interface.host_nic.*.id[count.index]}"]
-  location = var.location
   size = var.vm_size
   provision_vm_agent = true
   patch_assessment_mode = "ImageDefault"
   patch_mode = "Manual"
+
   enable_automatic_updates = false
-  vm_agent_platform_updates_enabled = false
+  vm_agent_platform_updates_enabled = true
 
   admin_username = var.admin_username
   admin_password = var.admin_password

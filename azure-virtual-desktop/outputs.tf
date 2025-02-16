@@ -19,6 +19,11 @@ output "location" {
   value = var.location
 }
 
+output "resource_group_id" {
+  description = "ID of the AVD resource group"
+  value = azurerm_resource_group.avd_resource_group.id
+}
+
 output "vdpool_name" {
   description = "Name of the AVD host pool"
   value = azurerm_virtual_desktop_host_pool.avd_host_pool.name
@@ -34,6 +39,11 @@ output "vdag_name" {
   value = azurerm_virtual_desktop_application_group.avd_dag.name
 }
 
+output "vnet_rg_name" {
+  description = "Name of the resurce group for the virtual network"
+  value = azurerm_resource_group.network_resource_group.name
+}
+
 output "vnet_address_space" {
   description = "IP address range for the virtual network"
   value = azurerm_virtual_network.vnet.address_space
@@ -42,11 +52,6 @@ output "vnet_address_space" {
 output "snet_address_prefix" {
   description = "IP address space for the virtual subnet"
   value = azurerm_subnet.avd_subnet.address_prefixes
-}
-
-output "nsg_name" {
-  description = "Name of the NSG for the azure virtual desktop"
-  value = azurerm_network_security_group.avd_nsg.name
 }
 
 output "rd_host_count" {

@@ -1,21 +1,26 @@
-# Create a map of abbriviations for dynamic naming based on location, add or remove these as necessary
+# create a map of abbriviations for dynamic resource naming based on region (location) varible
 locals {
   location_abbr = {
-    "uksouth"        = "uks"
-    "westeurope"     = "weu"
-    "northeurope"    = "neu"
-    "swedencentral"  = "swc"
-    "southcentralus" = "scu"
+    # examples of most common azure regions [add, remove as necessary]
+    "uksouth"        = "uks"  # UKSouth [Europe]
+    "westeurope"     = "weu"  # West Europe [Europe]
+    "northeurope"    = "neu"  # North Europe [Europe]
+    "southcentralus" = "scus" # South Central US [US]
+    "eastus"         = "eus"  # East US [US]
+    "westus"         = "wus"  # West US [US]
+    "australiaeast"  = "aue"  # Australia East [Asia]
+    "japaneast"      = "jpe"  # Japan East [Asia]
+    "southeastasia"  = "sea"  # South East Asia [Asia]
   }
 
-  # Function to generate the resource name with location prefix
+  # function to generate the resource name with location prefix
   generate_resource_name = {
     location    = local.location_abbr[var.location],
     envrionment = var.envrionment
     workload    = var.workload
   }
 
-  # Funcation to generate the vnet & subnet names with location prefix
+  # funcation to generate the vnet & subnet names with location prefix
   generate_network_name = {
     location    = local.location_abbr[var.location],
     envrionment = var.envrionment
@@ -23,7 +28,11 @@ locals {
   }
 }
 
-#--------------------Dynamic Name Varibles--------------------------#
+variable "location" {
+  description = "The region (location) resources will be deployed too"
+  type        = string
+  default     = "uksouth"
+}
 
 variable "envrionment" {
   description = "The production level of the resources (d = dev/ p = prod)"
@@ -35,12 +44,6 @@ variable "workload" {
   description = "The name of the workload or application for the AVD deployment"
   type        = string
   default     = "tfavd"
-}
-
-variable "location" {
-  description = "The location of the resource deployment (example: uksouth, westeurope)"
-  type        = string
-  default     = "uksouth"
 }
 
 variable "resource_tags" {
@@ -87,7 +90,7 @@ variable "network_tags" {
 
 variable "rdsh_count" {
   description = "Number of remote desktop session hosts to deploy"
-  default = 2
+  default = 1
 }
 
 variable "vm_size" {
@@ -148,7 +151,7 @@ variable "avd_host_registration" {
 
 variable "rfc3339time" {
   description = "Host registration token expiration date & time"
-  default     = "2025-02-14T23:40:52Z"
+  default     = "2025-02-20T23:40:52Z" #
 }
 
 variable "storage_account_tags" {

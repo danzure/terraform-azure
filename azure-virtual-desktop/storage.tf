@@ -9,9 +9,10 @@ resource "random_string" "sa_random_string" {
 
 # Create the storage account for FSLogix profiles
 resource "azurerm_storage_account" "sa_fslogix" {
-  name = "safslogix${random_string.sa_random_string.id}"
   resource_group_name = azurerm_resource_group.avd_resource_group.name
   location = azurerm_resource_group.avd_resource_group.location
+
+  name = "safslogix${random_string.sa_random_string.id}"
   account_replication_type = "LRS"
   account_tier = "Standard" # ["Premuim" reccomended]
   #account_kind = "FileStorage"
@@ -21,22 +22,24 @@ resource "azurerm_storage_account" "sa_fslogix" {
 
 # create the file share for fslogix profiles
 resource "azurerm_storage_share" "fs_fslogix" {
+  storage_account_id = azurerm_storage_account.sa_fslogix.id
+
   name = "fsl-profiles"
   quota = var.fsl_quota
-  storage_account_id = azurerm_storage_account.sa_fslogix.id
 
   depends_on = [azurerm_storage_account.sa_fslogix]
 }
 
 # Create storage account for MSIX applications
 resource "azurerm_storage_account" "sa_msixapp" {
-  name = "samsixapp${random_string.sa_random_string.id}"
   resource_group_name = azurerm_resource_group.avd_resource_group.name
   location = azurerm_resource_group.avd_resource_group.location
-  account_replication_type = "LRS"
-  account_tier = "Standard"
-  #account_kind = "FileStorage" 
 
+  name = "samsixapp${random_string.sa_random_string.id}"
+  account_replication_type = "LRS"
+  account_tier = "Standard" #[Standard, Premuium]
+  #account_kind = "FileStorage" 
+  
   tags = var.storage_account_tags
 }
 
