@@ -1,12 +1,7 @@
-# Terraform-Azure Projects
+# Terraform-Azure 
 
-Welcome to my personal repository for Terraform Azure projects! This repo contains self-made ready to use Terraform configurations that can be used as a quickstart for various Azure infrastructure & services
+Welcome to my personal `terraform-azure` repository, the purpose of this repoisitory to showcase and provide examples of my own self-created terraform configuration files for various services within Microsoft Azure. The onfiguration files within this repo can be used as either a quickstart or deployed as part of a wider solution or infrastructure. 
 
-## Overview
-
-This repository includes the following Terraform configurations:
-
-- **azure-virtual-desktop**: Azure Virtual Desktop (AVD) configuration that includes: AVD, Virtual Network Infrastructure & Storage Accounts
 
 ## Getting Started
 
@@ -31,14 +26,17 @@ To get started with any of the projects in this repository:
 
 ## Contributing
 
-Feel free to contribute to this repository by submitting issues or pull requests. Your contributions are greatly appreciated!
+If you would like to contribute to this repository, please fork the repository and submit a pull request with your changes. I welcome any contributions that improve any of the configurations listed within this repoisitory.
 
-## License
+## Authors
 
-This repository is licensed under the MIT License. See the [LICENSE](LICENSE) file for more information.
+Daniel Powley 
 
 ## Contact
 
-For any questions or feedback, please reach out to me at [danielpowley92@outlook.com](mailto:danielpowley92@outlook.com).
+For any questions or feedback, please reach out to me either email: [danielpowley92@outlook.com](mailto:danielpowley92@outlook.com) or via LinkedIn: [https://www.linkedin.com/in/danielpowley92]
 
-Happy Terraforming!
+
+# License
+
+This repository is licensed under the MIT License. See the [LICENSE](LICENSE) file for more information.
