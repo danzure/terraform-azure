@@ -79,11 +79,10 @@ SETTINGS
       "registrationInfoToken": "${local.registration_token}"
     }
   }
+  
 PROTECTED_SETTINGS
 
-  depends_on = [
-    azurerm_virtual_desktop_host_pool.avd_host_pool, azurerm_windows_virtual_machine.avd_host
-  ]
+  depends_on = [azurerm_virtual_desktop_host_pool.avd_host_pool, azurerm_windows_virtual_machine.avd_host]
 }
 
 # deploy the domain join vm extention to each virtual machine host(s)

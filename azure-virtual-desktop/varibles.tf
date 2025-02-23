@@ -1,7 +1,6 @@
-# create a map of abbriviations for dynamic resource naming based on region (location) varible
+# creates a local map of location abbriviations for some of the most common azure regions (add & remove these as necessary)
 locals {
   location_abbr = {
-    # examples of most common azure regions [add, remove as necessary]
     "uksouth"        = "uks"  # UKSouth [Europe]
     "westeurope"     = "weu"  # West Europe [Europe]
     "northeurope"    = "neu"  # North Europe [Europe]
@@ -13,7 +12,7 @@ locals {
     "southeastasia"  = "sea"  # South East Asia [Asia]
   }
 
-  # function to generate the resource name with location prefix
+  # function to generate resource name using the envrionment, workload & location prefix
   generate_resource_name = {
     location    = local.location_abbr[var.location],
     envrionment = var.envrionment
@@ -29,7 +28,7 @@ locals {
 }
 
 variable "location" {
-  description = "The region (location) resources will be deployed too"
+  description = "Specified the location the resources will be deployed too, this value will be added to the resource name"
   type        = string
   default     = "uksouth"
 }
@@ -62,7 +61,7 @@ variable "workspace_friendly_name" {
 }
 
 variable "network_workload" {
-  description = "Name of the workload for networking resources"
+  description = "Name of the workload for networking resources, this value will be added to the name of the resource"
   type        = string
   default     = "infra"
 }
