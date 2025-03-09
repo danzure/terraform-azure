@@ -77,6 +77,11 @@ variable "rsv_soft_delete" {
   default = true #[true, false]
 }
 
+variable "rsv_region_restore" {
+  description = "Specified is Cross Region Restore is enabled"
+  default = false
+}
+
 variable "rsv_network_access" {
   description = "Specifies if public netwwork access is enabled or disabled for the rsv"
   default = true #[true, falce]

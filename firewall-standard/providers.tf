@@ -7,7 +7,7 @@ terraform {
     }
   }
 
-  # configure the HCP organisation & workspace
+  # Configure the HCP organisation & workspace
   cloud {
     organization = "danzure-org"
     workspaces {
@@ -16,7 +16,7 @@ terraform {
   }
 }
 
-# configure the Microsoft Azure Provider
+# Configure the Microsoft Azure Provider
 provider "azurerm" {
   features {
     virtual_machine {
@@ -24,7 +24,4 @@ provider "azurerm" {
       delete_os_disk_on_deletion = true
     }
   }
-}
-
-provider "random" {
 }

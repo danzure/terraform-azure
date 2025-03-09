@@ -4,7 +4,6 @@ resource "random_string" "storageAccountRandomString" {
   upper = false
   lower = false 
   special = false
-  number = true
 }
 
 # Deploys the resource group

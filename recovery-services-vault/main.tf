@@ -28,6 +28,7 @@ resource "azurerm_recovery_services_vault" "rsv" {
   soft_delete_enabled = var.rsv_soft_delete
   immutability = var.rsv_immutability
   public_network_access_enabled = var.rsv_network_access
+  cross_region_restore_enabled = var.rsv_region_restore
 
   depends_on = [ azurerm_resource_group.rg ]
 }

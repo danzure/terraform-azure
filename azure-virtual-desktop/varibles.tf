@@ -1,7 +1,7 @@
 # creates a local map of location abbriviations for some of the most common azure regions (add & remove these as necessary)
 locals {
   location_abbr = {
-    "uksouth"        = "uks"  # UKSouth [Europe]
+    "uksouth"        = "uks"  # UK South [Europe]
     "westeurope"     = "weu"  # West Europe [Europe]
     "northeurope"    = "neu"  # North Europe [Europe]
     "southcentralus" = "scus" # South Central US [US]
