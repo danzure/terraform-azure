@@ -7,10 +7,10 @@ resource "random_string" "storageAccountRandomString" {
 }
 
 # Deploys the resource group
-resource "azurerm_resource_group" "resourceGroup" {
+resource "azurerm_resource_group" "sa_resource_group" {
   name = var.resourceGroupName
   location = var.resourceRegion
-
+  
   tags = var.resourceTags
 }
 
