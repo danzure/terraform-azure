@@ -7,11 +7,11 @@ terraform {
     }
   }
 
-  # Configure the HCP organisation & workspace
+  # set the hashicorp HCP terraform organisation + workspace for remote state file (remove if unused)
   cloud {
     organization = "danzure-org"
     workspaces {
-      name = "terraform-azure"
+      name = "firewall-standard"
     }
   }
 }

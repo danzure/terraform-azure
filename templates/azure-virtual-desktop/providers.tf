@@ -7,11 +7,11 @@ terraform {
     }
   }
 
-  # configure the HCP organisation & workspace
+  # set the hashicorp HCP terraform organisation + workspace for remote state file (remove if unused)
   cloud {
     organization = "danzure-org"
     workspaces {
-      name = "terraform-azure"
+      name = "azure-virtual-desktop"
     }
   }
 }
@@ -19,10 +19,7 @@ terraform {
 # configure the Microsoft Azure Provider
 provider "azurerm" {
   features {
-    virtual_machine {
-      graceful_shutdown = true
-      delete_os_disk_on_deletion = true
-    }
+    
   }
 }
 

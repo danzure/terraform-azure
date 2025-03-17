@@ -44,6 +44,16 @@ output "vnet_rg_name" {
   value = azurerm_resource_group.network_resource_group.name
 }
 
+output "vnet_rg_location" {
+  description = "Outputs the location of the virtual network resource group"
+  value = azurerm_resource_group.network_resource_group.location
+}
+
+output "vnet_location" {
+  description = "Outputs the location of the virtual network"
+  value = azurerm_virtual_network.vnet.location
+}
+
 output "vnet_address_space" {
   description = "Outputs the ip address range for the virtual network"
   value = azurerm_virtual_network.vnet.address_space

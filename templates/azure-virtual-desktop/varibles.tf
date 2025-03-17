@@ -150,7 +150,7 @@ variable "avd_host_registration" {
 
 variable "rfc3339time" {
   description = "Host registration token expiration date & time"
-  default     = "2025-02-20T23:40:52Z" #
+  default     = "2025-03-20T23:40:52Z" #
 }
 
 variable "storage_account_tags" {
@@ -169,4 +169,4 @@ variable "fsl_quota" {
 variable "msix_quota" {
   description = "Set the storage quota (GB) for the FSLogix file share"
   default = "5"
-}
+} 

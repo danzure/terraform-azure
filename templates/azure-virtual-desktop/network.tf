@@ -7,6 +7,10 @@ resource "azurerm_resource_group" "network_resource_group" {
   )
   location = var.location
   tags = var.network_tags
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 # deploy the virtual network

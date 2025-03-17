@@ -7,6 +7,10 @@ resource "azurerm_resource_group" "avd_resource_group" {
   )
   location = var.location
   tags = var.resource_tags
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 # create the virtual desktop workspace

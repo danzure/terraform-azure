@@ -5,7 +5,8 @@ terraform {
       version = "4.14.0"
     }
   }
-  # Set the Hashicorp HCP Terraform organisation
+  
+  # set the hashicorp HCP terraform organisation + workspace for remote state file (remove if unused)
   cloud {
     organization = "danzure-org"
     workspaces {
