@@ -22,8 +22,8 @@ resource "azurerm_windows_virtual_machine" "" {
     storage_account_type = ""
     caching = "ReadWrite"
   }
-  admin_username = ""
-  admin_password = ""
+  admin_username = "vm-admin"
+  admin_password = "ChangeMe123456"
 
   tags = var.tags
 }
